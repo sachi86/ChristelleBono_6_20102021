@@ -18,10 +18,10 @@ exports.signup = (req, res, next) => {
             password: hash//Get the password hash
         });
         user.save()//Allows you to save this new user
-        .then(() => res.status(201).json({ message:'User created!' }))
-        .catch(error => res.status(400).json({ error }));
+        .then(() => res.status(201).json({ message:'User created!' }))// response create data
+        .catch(error => res.status(400).json({ error }));// response error bad request
     })
-    .catch(error => res.status(500).json({ error }));
+    .catch(error => res.status(500).json({ error }));// response error server problem
 };
 
 //Allows you to connect with your identifiers 
@@ -29,12 +29,12 @@ exports.login = (req, res, next) => {
     User.findOne({ email: req.body.email })//Allows you to find the email passed in the request in the database
     .then(user =>{
         if(!user){
-            return res.status(401).json({ error: 'User no found!' });//The email isn't in the database
+            return res.status(401).json({ error: 'User no found!' });//The email isn't in the database error unauthorized
         }
         bcrypt.compare(req.body.password, user.password)// Compare to password passed in the request in the hash in the database
         .then(valid => {
             if(!valid){//it's not valid
-                return res.status(401).json({ error: 'Pasword inccorect!' });
+                return res.status(401).json({ error: 'Pasword inccorect!' });//response error unauthorized
             }
             res.status(200).json({//is valid
                 userId: user._id, //get the user id 
@@ -45,8 +45,8 @@ exports.login = (req, res, next) => {
                 )
             });
         })
-        .catch(error => res.status(500).json({ error }));
+        .catch(error => res.status(500).json({ error }));// response error server problem
     })
-    .catch(error => res.status(500).json({ error }));
+    .catch(error => res.status(500).json({ error }));// response error server problem
 };
 

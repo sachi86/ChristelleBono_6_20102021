@@ -1,5 +1,10 @@
+//Call to dotenv 
 const dotenv = require('dotenv');
+
+//Call to function of dotenv config
 dotenv.config({ path: './config.env' });
+
+//Varible to identifiers Mongo DB with fonction dotenv replace
 const DB = process.env.DATABASE.replace( '<PASSWORD>', process.env.DATABASE_PASSWORD );
 
 
@@ -9,11 +14,13 @@ const express = require('express');
 //Call the module mongoose for to use
 const mongoose = require('mongoose');
 
+//Call the module path for use
 const path = require('path'); 
 
-//Call the file to have a defined routes
+//Call the file to have  defined user routes
 const userRoutes = require('./routes/user');
 
+//Call the file to have defined sauce routes
 const sauceRoutes = require('./routes/sauce');
 
 
@@ -39,7 +46,7 @@ app.use((req, res, next) => {
 //app use to express formated json
 app.use(express.json());
 
-
+//app use to module path 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 //app use to userRoute who defined the routes

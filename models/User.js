@@ -1,7 +1,7 @@
 //Call the module mongoose for to use
 const mongoose = require('mongoose');
 
-//// Check that the element is unique in the DB
+// Check that the element is unique in the DB
 const uniqueValidator = require('mongoose-unique-validator'); 
 
 //Allows you to model the data
