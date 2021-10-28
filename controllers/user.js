@@ -7,6 +7,11 @@ const bcrypt = require('bcrypt');
 //Call the module of jsonwebtoken for token management
 const jwt = require('jsonwebtoken');
 
+//Call to dotenv 
+const dotenv = require('dotenv');
+
+//Call to function of dotenv config
+dotenv.config({ path: './config.env' });
 
 
 //Allows you to create a new user
@@ -40,7 +45,7 @@ exports.login = (req, res, next) => {
                 userId: user._id, //get the user id 
                 token: jwt.sign( //function to create a token which will be used for the authentication of a user
                     { userId : user._id },//data to encode
-                    'CREATE_SECRET_TOKEN_KEY',//encoding key
+                    process.env.JWT_SECRET,//encoding key
                     { expiresIn :'24h'}//token expiration
                 )
             });
